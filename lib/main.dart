@@ -6,10 +6,16 @@ class Bytebank extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: ListaTransferencias(),
+      theme: ThemeData(
+        primaryColor: Colors.green[900], 
+        accentColor: Colors.blueAccent[700],
+        buttonTheme: ButtonThemeData( 
+          buttonColor: Colors.blueAccent[700],
+          textTheme: ButtonTextTheme.primary,
+        ),
       ),
+      debugShowCheckedModeBanner: false,
+      home: ListaTransferencias(),
     );
   }
 }
@@ -121,17 +127,17 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          final Future<Transferencia> future = Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return FormularioTransferencia();
-              },
-            ),
-          );
-          future.then((transferenciaRecebida) {
+          child: Icon(Icons.add),
+          onPressed: () {
+            final Future<Transferencia> future = Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return FormularioTransferencia();
+                },
+              ),
+            );
+            future.then((transferenciaRecebida) {
               debugPrint('chegou no then do future');
               debugPrint('$transferenciaRecebida');
               setState(() {
@@ -139,10 +145,8 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
                   widget._transferencias.add(transferenciaRecebida);
                 }
               });
-            },
-          );
-        },
-      ),
+            });
+          }),
     );
   }
 }
